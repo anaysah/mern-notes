@@ -5,9 +5,11 @@ import Navbar from './components/Navbar/Navbar';
 
 const Layout: React.FC = () => {
   return (
-    <div className='min-h-screen'>
+    <div className='flex flex-col min-h-screen'>
       <Navbar />
-      <Outlet />
+      <main className="flex-grow flex">
+        <Outlet />
+      </main>
     </div>
   );
 };
