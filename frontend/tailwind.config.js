@@ -8,8 +8,17 @@ export default {
     extend: {
       colors: {
         back: 'var(--background-color)',
-        pri: 'var(--text-color)',
-        fore: 'var(--foreground-color)',
+
+        'fore-pri': 'var(--foreground-pri-color)',
+        'fore-sec': 'var(--foreground-sec-color)',
+
+        pri: 'var(--text-pri-color)',
+        sec: 'var(--text-sec-color)',
+
+        divider: 'var(--divider-color)',
+        
+        'icon-pri': 'var(--icon-pri-color)',
+        'icon-sec': 'var(--icon-sec-color)',
       },
     },
   },

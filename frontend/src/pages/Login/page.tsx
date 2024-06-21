@@ -4,8 +4,8 @@ import PasswordInput from '../../components/Input/PasswordInput';
 
 const Login: React.FC = () => {
   return (
-    <div className="flex flex-grow flex-col justify-center items-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+    <div className="flex flex-grow flex-col justify-center items-center">
+      <div className="p-8 rounded border border-divider w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form>
           <div className="mb-4">
@@ -15,7 +15,7 @@ const Login: React.FC = () => {
             <input
               type="email"
               id="email"
-              className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+              className="bg-transparent w-full p-3 border border-divider rounded-lg focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Email"
             />
           </div>

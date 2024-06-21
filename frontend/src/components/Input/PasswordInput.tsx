@@ -10,7 +10,7 @@ const PasswordInput = () => {
       <input
         type={showPassword ? "text" : "password"}
         id="password"
-        className="w-full p-3 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+        className="bg-transparent w-full p-3 border border-divider rounded-lg focus:outline-none focus:ring focus:border-blue-300"
         placeholder="Password"
       />
       {

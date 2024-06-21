@@ -16,14 +16,34 @@
     /* src/styles/themes.css */
     :root {
         --background-color: #ffffff;
-        --foreground-color: #f3f4f6;
-        --text-color: #000000;
+
+        --foreground-pri-color: #f3f4f6;
+        --foreground-sec-color: #e5e7eb;
+
+        --text-pri-color: rgba(0, 0, 0, 0.87);
+        --text-sec-color: rgba(0, 0, 0, 0.6);
+
+        --divider-color: rgba(0, 0, 0, 0.12);
+
+        --icon-pri-color: rgba(0, 0, 0, 0.54);
+        --icon-sec-color: rgba(0, 0, 0, 0.38);
+
+        
     }
 
     .dark-theme {
-        --background-color: #030637;
-        --foreground-color: #374151;
-        --text-color: #ffffff;
+        --background-color: #121212;
+
+        --foreground-pri-color: #374151;
+        --foreground-sec-color: #4b5563;
+        
+        --text-pri-color: #fff;
+        --text-sec-color: rgba(255, 255, 255, 0.7);
+
+        --divider-color: rgba(255, 255, 255, 0.12);
+
+        --icon-pri-color: rgba(255, 255, 255, 0.54);
+        --icon-sec-color: rgba(255, 255, 255, 0.38);
     }
 }
 
