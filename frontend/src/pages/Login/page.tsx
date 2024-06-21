@@ -21,7 +21,7 @@ const Login: React.FC = () => {
           >
             Login
           </button>
-          <p className='text-center mt-4'>Don't have an account? <a href="/register" className='text-blue-500 underline'>Register</a></p>
+          <p className='text-center mt-4'>Don't have an account? <a href="/signup" className='text-blue-500 underline'>Register</a></p>
         </form>
       </div>
     </div>
