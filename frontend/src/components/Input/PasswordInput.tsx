@@ -1,5 +1,6 @@
 import { EyeIcon, EyeOff } from "lucide-react"
 import { useState } from "react"
+import Input from "./Input"
 
 const PasswordInput = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -7,11 +8,11 @@ const PasswordInput = () => {
 
     return (
     <div className="relative">
-      <input
+      <Input
         type={showPassword ? "text" : "password"}
         id="password"
-        className="bg-transparent w-full p-3 border border-divider rounded-lg focus:outline-none focus:ring focus:border-blue-300"
         placeholder="Password"
+        scale="small"
       />
       {
         showPassword ?

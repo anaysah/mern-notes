@@ -1,6 +1,7 @@
 // src/pages/Login/page.tsx
 import React from 'react';
 import PasswordInput from '../../components/Input/PasswordInput';
+import Input from '../../components/Input/Input';
 
 const Login: React.FC = () => {
   return (
@@ -9,20 +10,9 @@ const Login: React.FC = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form>
           <div className="mb-4">
-            {/* <label className="block text-gray-700 mb-2" htmlFor="email">
-              Email
-            </label> */}
-            <input
-              type="email"
-              id="email"
-              className="bg-transparent w-full p-3 border border-divider rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-              placeholder="Email"
-            />
+            <Input type="email" id="email" placeholder="Email" intent="default" scale="small"/>
           </div>
           <div className="mb-6">
-            {/* <label className="block text-gray-700 mb-2" htmlFor="password">
-              Password
-            </label> */}
             <PasswordInput />
           </div>
           <button
