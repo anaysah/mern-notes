@@ -22,6 +22,7 @@
 
         --text-pri-color: rgba(0, 0, 0, 0.87);
         --text-sec-color: rgba(0, 0, 0, 0.6);
+        --text-tri-color: #94a3b8;
 
         --divider-color: rgba(0, 0, 0, 0.12);
 
@@ -37,7 +38,7 @@
         --foreground-pri-color: #374151;
         --foreground-sec-color: #4b5563;
         
-        --text-pri-color: #fff;
+        --text-pri-color: #d4d4d8;
         --text-sec-color: rgba(255, 255, 255, 0.7);
 
         --divider-color: rgba(255, 255, 255, 0.12);

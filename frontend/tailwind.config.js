@@ -14,6 +14,7 @@ export default {
 
         pri: 'var(--text-pri-color)',
         sec: 'var(--text-sec-color)',
+        tri: 'var(--text-tri-color)',
 
         divider: 'var(--divider-color)',
         
