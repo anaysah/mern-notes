@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 
 const { errors } = require('celebrate');
 const authRoutes = require('./routes/authRoutes');
+const noteRoutes = require('./routes/noteRoutes');
 
 // Connect to MongoDB
 mongoose.connect(process.env.CONNECTION_STRING, {
@@ -32,6 +33,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api', authRoutes);
+app.use('/api', noteRoutes);
 
 // Error handling middleware for Celebrate
 app.use(errors());

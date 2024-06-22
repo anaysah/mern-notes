@@ -18,4 +18,15 @@ const signupSchema = Joi.object({
   })
 });
 
-module.exports = { signupSchema };
+const loginSchema = Joi.object({
+  email: Joi.string().email().required().messages({
+    'string.email': `Please enter a valid email address`,
+    'any.required': `Email is a required field`
+  }),
+  password: Joi.string().min(8).required().messages({
+    'string.min': `Password should have a minimum length of {#limit}`,
+    'any.required': `Password is a required field`
+  })
+})
+
+module.exports = { signupSchema, loginSchema };
