@@ -9,22 +9,22 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log('Request Config:', config); // Log the request config
+    // console.log('Request Config:', config); // Log the request config
     return config;
   },
   (error) => {
-    console.error('Request Error:', error); // Log the request error
+    // console.error('Request Error:', error); // Log the request error
     return Promise.reject(error);
   }
 );
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log('Response:', response); // Log the response
+    // console.log('Response:', response); // Log the response
     return response;
   },
   (error) => {
-    console.error('Response Error:', error); // Log the response error
+    // console.error('Response Error:', error); // Log the response error
     return Promise.reject(error);
   }
 );
