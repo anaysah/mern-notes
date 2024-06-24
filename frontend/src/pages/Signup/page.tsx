@@ -1,21 +1,48 @@
 // src/pages/Signup/page.tsx
-import React from 'react';
-import PasswordInput from '../../components/Input/PasswordInput';
-import Input from '../../components/Input/Input';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import InputErrorSpan from '../../components/Input/InputErrorSpan';
+import React, { useState } from "react";
+import PasswordInput from "../../components/Input/PasswordInput";
+import Input from "../../components/Input/Input";
+import { useForm, SubmitHandler } from "react-hook-form";
+import InputErrorSpan from "../../components/Input/InputErrorSpan";
+import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../utils/axiosInstance";
 
-interface FormData {
-  username: string;
+interface SignupFormData {
+  name: string;
   email: string;
   password: string;
 }
 
 const Signup: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupFormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data); // Replace with your form submission logic
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<SignupFormData> = async (
+    data: SignupFormData
+  ) => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+    try {
+      const response = await axiosInstance.post("/signup", data);
+      console.log(response.data.message); // Login successful
+      setSuccess(true);
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+      setError(error.response.data.error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -26,13 +53,15 @@ const Signup: React.FC = () => {
           <div className="mb-4 relative">
             <Input
               type="text"
-              id="username"
-              placeholder="Username"
+              id="name"
+              placeholder="Name"
               intent="default"
               scale="small"
-              {...register('username', { required: 'Username is required' })}
+              {...register("name", { required: "name is required" })}
             />
-            {errors.username && <InputErrorSpan>{errors.username.message}</InputErrorSpan>}
+            {errors.name && (
+              <InputErrorSpan>{errors.name.message}</InputErrorSpan>
+            )}
           </div>
           <div className="mb-4 relative">
             <Input
@@ -41,21 +70,28 @@ const Signup: React.FC = () => {
               placeholder="Email"
               intent="default"
               scale="small"
-              {...register('email', {
-                required: 'Email is required',
+              {...register("email", {
+                required: "Email is required",
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: 'Invalid email address'
-                }
+                  message: "Invalid email address",
+                },
               })}
             />
-            {errors.email && <InputErrorSpan>{errors.email.message}</InputErrorSpan>}
+            {errors.email && (
+              <InputErrorSpan>{errors.email.message}</InputErrorSpan>
+            )}
           </div>
-          <div className="mb-6 relative">
-            <PasswordInput 
-            register={register}
-            />
-            {errors.password && <InputErrorSpan>{errors.password.message}</InputErrorSpan>}
+          <div className=" relative">
+            <PasswordInput register={register} />
+            {errors.password && (
+              <InputErrorSpan>{errors.password.message}</InputErrorSpan>
+            )}
+          </div>
+          <div className="h-6 relative">
+            {loading && <InputErrorSpan>loggin in</InputErrorSpan>}
+            {error && <InputErrorSpan>{error}</InputErrorSpan>}
+            {success && <InputErrorSpan> Account created successfully</InputErrorSpan>}
           </div>
           <button
             type="submit"
@@ -63,7 +99,12 @@ const Signup: React.FC = () => {
           >
             Sign Up
           </button>
-          <p className='text-center mt-4'>Already have an account? <a href="/login" className='text-blue-500 underline'>Login</a></p>
+          <p className="text-center mt-4">
+            Already have an account?{" "}
+            <a href="/login" className="text-blue-500 underline">
+              Login
+            </a>
+          </p>
         </form>
       </div>
     </div>
