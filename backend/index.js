@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const cookieParser = require('cookie-parser');
 
 const { errors } = require('celebrate');
 const authRoutes = require('./routes/authRoutes');
@@ -20,11 +21,12 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const {authenticateToken} = require("./utilities");
 
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(
   cors({
     origin: "http://localhost:5173",
+    credentials: true
   })
 );
 
