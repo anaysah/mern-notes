@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NoteCard from "../../components/Cards/NoteCard";
 import ReactModal from 'react-modal';
 import { PlusIcon } from "lucide-react";
 import NoteForm from "./NoteForm";
+import axiosInstance from "../../utils/axiosInstance";
+import { format } from 'date-fns';
 
 const Home = () => {
   const [noteModal, setNoteModal] = useState({
@@ -10,18 +12,39 @@ const Home = () => {
     type: "add",
   });
 
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const fetchNotes = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axiosInstance.get("/notes");
+      const data = response.data.notes;
+      setNotes(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
   return (
     <div className="grid grid-cols-3 gap-4 mt-8 w-full h-min">
-      <NoteCard
-        title="The Magical Bow"
-        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-        date="24/03/2023"
-      />
-      <NoteCard
-        title="The Power"
-        content="lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
-        date="24/03/2023"
-      />
+      {
+        notes.map((note) => (
+          <NoteCard
+            key={note._id}
+            note={note}
+          />
+        ))
+      }
+
+      
       <ReactModal
       isOpen={noteModal.isShown}
       onRequestClose={() => setNoteModal({ ...noteModal, isShown: false })}

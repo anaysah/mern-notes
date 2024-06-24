@@ -54,7 +54,7 @@ const getNotes = async (req, res) => {
   const userId = req.user.id; // Assuming user ID is available in req.user
 
   try {
-    const notes = await Note.find({ createdBy: userId }).sort({ createdAt: -1 });
+    const notes = await Note.find({ createdBy: userId }).sort({ createdAt: -1 }).select('-createdBy -__v');
 
     res.status(200).json({ notes });
   } catch (error) {
