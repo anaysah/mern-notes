@@ -14,6 +14,11 @@ router.post('/login', celebrate({
   [Segments.BODY]: loginSchema,
 }), login);
 
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.sendStatus(200);
+})
+
 router.get('/user', authMiddleware, getUser);
 
 module.exports = router;
