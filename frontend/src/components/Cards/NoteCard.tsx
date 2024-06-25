@@ -23,11 +23,11 @@ const NoteCard: React.FC<NoteCardProps> = ({ note , onEdit, onDelete }) => {
       <p className='text-sm line-clamp-3 mt-2 flex-1 text-pri'>{note.content}</p>
       <div className='flex justify-between items-center mt-2 text-tri'>
         <div className='flex gap-2 text-sm'>
-          {note.tags.map(item => {return <span>#{item}</span>})}
+          {note.tags.map((item, index) => {return <span key={`note-tag-${index}`}>#{item}</span>})}
         </div>
         <div className='flex gap-2'>
-          <button className='hover:text-blue-500'><PencilLine className='h-4 w-4' /></button>
-          <button className='hover:text-red-500'><Trash className='h-4 w-4' /></button>
+          <button className='hover:text-blue-500' onClick={onEdit}><PencilLine className='h-4 w-4' /></button>
+          <button className='hover:text-red-500' onClick={onDelete}><Trash className='h-4 w-4' /></button>
         </div>
       </div>
     </div>

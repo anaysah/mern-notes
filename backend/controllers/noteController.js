@@ -25,12 +25,12 @@ const addNote = async (req, res) => {
 };
 
 const editNote = async (req, res) => {
-  const { id } = req.params;
+  const noteId = req.params.id;
   const { title, content, isPinned, tags } = req.body;
   const userId = req.user.id; // Assuming user ID is available in req.user
 
   try {
-    const note = await Note.findOne({ _id: id, createdBy: userId });
+    const note = await Note.findOne({ _id: noteId, createdBy: userId });
 
     if (!note) {
       return res.status(404).json({ error: 'Note not found' });
