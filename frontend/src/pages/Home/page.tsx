@@ -50,6 +50,15 @@ const Home = () => {
     }
   };
 
+  const pinNote = async (noteId, isPinned) => {
+    try {
+      const response = await axiosInstance.patch(`/pin-note/${noteId}`, { isPinned:  !isPinned });
+      setNotes(notes.map((note) => note._id === noteId ? response.data : note));
+    } catch (error) {
+      setError(error.message);
+    }
+  }
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-8 w-full h-min mx-2 sm:mx-auto">
       {
@@ -60,6 +69,7 @@ const Home = () => {
             onView={()=>setNoteModalStates({...noteModalStates, isShown: true, type: "view", note: note})}
             onEdit={()=>setNoteModalStates({...noteModalStates, isShown: true, type: "edit", note: note})}
             onDelete={() => setDeleteModalStates({ ...deleteModalStates, isShown: true, noteTitle: note.title, noteId: note._id })}
+            onPin={() => pinNote(note._id, note.isPinned)}
           />
         )
       }
