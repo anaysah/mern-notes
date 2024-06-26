@@ -8,7 +8,7 @@ import { PageProvider } from './contexts/PageContext';
 import Searchbox from './components/Navbar/Searchbox';
 import Menubar from './components/Navbar/Menubar';
 
-const navbarItemsList = {
+export const navbarItemsList = {
   Searchbox: <Searchbox key="searchbox" />,
   Menubar: <Menubar key="menubar" />,
 };

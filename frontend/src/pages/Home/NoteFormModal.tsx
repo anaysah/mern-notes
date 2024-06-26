@@ -1,4 +1,4 @@
-import { PlusIcon } from "lucide-react";
+import { CirclePlus, CirclePlusIcon, EditIcon, PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputErrorSpan from "../../components/Input/InputErrorSpan";
@@ -82,7 +82,7 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
         onRequestClose={() => setNoteModalStates({ ...noteModalStates, isShown: false })}
         style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
         contentLabel="Note Modal"
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-1/2 "
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-1/2  w-5/6"
       >
     <div className="relative text-sec bg-back rounded p-4">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -140,7 +140,7 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
             {watch("tags")?.map((tag, index) => (
               <span
                 key={index}
-                className="bg-gray-200 text-sm px-2 py-1 rounded-lg"
+                className="bg-fore-sec text-sm px-2 py-1 rounded-lg"
               >
                 {tag}{" "}
                 <button
@@ -157,9 +157,17 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
 
         <button
           type="submit"
-          className="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition-colors"
+          className="mt-4 bg-blue-500 text-white  p-2 rounded hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 ml-auto"
         >
-          Submit
+          {
+            noteModalStates.type === "add" ?
+            <span><CirclePlus className="w-5 h-5" /></span> :
+            
+          <span><EditIcon className="w-5 h-5" /></span>
+          }
+          <span>
+            {noteModalStates.type === "add" ? "Add" : "Update"}
+          </span>
         </button>
       </form>
     </div>
