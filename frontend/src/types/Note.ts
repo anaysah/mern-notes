@@ -9,7 +9,7 @@ interface Note {
 
 interface NoteModalState {
   isShown: boolean;
-  type: "add" | "edit";
+  type: "add" | "edit" | "view";
   note: Note | null;
 }
 

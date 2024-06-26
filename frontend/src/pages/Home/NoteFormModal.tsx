@@ -1,13 +1,14 @@
-import { CirclePlus, CirclePlusIcon, EditIcon, PlusIcon } from "lucide-react";
+import { CirclePlus, EditIcon, PlusIcon } from "lucide-react";
 import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputErrorSpan from "../../components/Input/InputErrorSpan";
 import ReactModal from "react-modal";
 import axiosInstance from "../../utils/axiosInstance";
+import SubmitBtn from "../../components/Buttons/SubmitBtn";
+
+
 
 const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) => {
-  
-
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
   };
 
   useEffect(() => {
-    if(noteModalStates.type === "edit" && noteModalStates.note){
+    if(noteModalStates.type !== "add" && noteModalStates.note){
       setValue("title", noteModalStates.note.title);
       setValue("content", noteModalStates.note.content);
       setValue("tags", noteModalStates.note.tags);
@@ -79,7 +80,10 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
   return (
     <ReactModal
         isOpen={noteModalStates.isShown}
-        onRequestClose={() => setNoteModalStates({ ...noteModalStates, isShown: false })}
+        onRequestClose={() => {
+          setNoteModalStates({ ...noteModalStates, isShown: false })
+          reset()
+        }}
         style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
         contentLabel="Note Modal"
         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:w-1/2  w-5/6"
@@ -154,21 +158,13 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
             ))}
           </div>
         </div>
-
-        <button
-          type="submit"
-          className="mt-4 bg-blue-500 text-white  p-2 rounded hover:bg-blue-600 transition-colors flex items-center justify-center gap-2 ml-auto"
-        >
+        
           {
             noteModalStates.type === "add" ?
-            <span><CirclePlus className="w-5 h-5" /></span> :
-            
-          <span><EditIcon className="w-5 h-5" /></span>
+            <SubmitBtn><CirclePlus className="w-5 h-5" /> Add</SubmitBtn> : noteModalStates.type === "edit" ? 
+            <SubmitBtn><EditIcon className="w-5 h-5" /> Update</SubmitBtn> : ""
           }
-          <span>
-            {noteModalStates.type === "add" ? "Add" : "Update"}
-          </span>
-        </button>
+        
       </form>
     </div>
     </ReactModal>

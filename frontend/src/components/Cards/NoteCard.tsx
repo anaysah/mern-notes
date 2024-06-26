@@ -6,14 +6,15 @@ interface NoteCardProps {
   note: Note;
   onEdit?: () => void;
   onDelete?: () => void;
+  onView?: () => void;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ note , onEdit, onDelete }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ note , onEdit, onDelete, onView }) => {
   return (
     <div className='flex flex-col px-4 py-2 rounded border border-divider'>
       <div className='flex justify-between items-center'>
         <div>
-          <h6 className='text-pri text-md font-medium'>{note.title}</h6>
+          <h6 onClick={onView} className='text-pri text-md font-medium'>{note.title}</h6>
           <p className='text-xs text-tri'>{format(note.createdAt, 'dd/MM/yy HH:mm')}</p>
         </div>
         <div>

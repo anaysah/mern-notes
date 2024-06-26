@@ -57,6 +57,7 @@ const Home = () => {
           <NoteCard
             key={note._id}
             note={note}
+            onView={()=>setNoteModalStates({...noteModalStates, isShown: true, type: "view", note: note})}
             onEdit={()=>setNoteModalStates({...noteModalStates, isShown: true, type: "edit", note: note})}
             onDelete={() => setDeleteModalStates({ ...deleteModalStates, isShown: true, noteTitle: note.title, noteId: note._id })}
           />
