@@ -6,9 +6,14 @@ import ReactModal from "react-modal";
 import axiosInstance from "../../utils/axiosInstance";
 import SubmitBtn from "../../components/Buttons/SubmitBtn";
 
+interface NoteFormModalProps {
+  noteModalStates: NoteModalStates;
+  setNoteModalStates: React.Dispatch<React.SetStateAction<NoteModalStates>>;
+  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  notes: Note[];
+}
 
-
-const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) => {
+const NoteFormModal: React.FC<NoteFormModalProps> = ({noteModalStates, setNoteModalStates, setNotes, notes}) => {
   const {
     register,
     handleSubmit,
@@ -16,7 +21,13 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
     reset,
     setValue,
     watch
-  } = useForm<Note>();
+  } = useForm<Note>({
+    defaultValues: {
+      title: "",
+      content: "",
+      tags: [],
+    },
+  });
 
   const onSubmit:SubmitHandler<Note> = async (data: Note) => {
     if (noteModalStates.type === "add") {
@@ -48,7 +59,7 @@ const NoteFormModal = ({noteModalStates, setNoteModalStates, setNotes, notes}) =
 
   const updateNote = async (data: Note) => {
     try{
-      const response = await axiosInstance.put(`/edit-note/${noteModalStates.note._id}`, data)
+      const response = await axiosInstance.put(`/edit-note/${noteModalStates.note?._id}`, data)
       setNotes(notes.map(note => note._id === response.data.note._id ? response.data.note : note))
       setNoteModalStates({ ...noteModalStates, isShown: false })
       reset();

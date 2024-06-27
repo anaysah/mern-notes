@@ -3,15 +3,12 @@ import React, { useState } from "react";
 import PasswordInput from "../../components/Input/PasswordInput";
 import Input from "../../components/Input/Input";
 import { useForm, SubmitHandler } from "react-hook-form";
-
 import InputErrorSpan from "../../components/Input/InputErrorSpan";
 import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { handleError } from "../../utils/helpers";
 
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+
 
 const Login: React.FC = () => {
   const {
@@ -26,7 +23,7 @@ const Login: React.FC = () => {
   });
 
   
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +33,7 @@ const Login: React.FC = () => {
     data: LoginFormData
   ) => {
     setLoading(true);
-    setError(null);
+    setError("");
     setSuccess(false);
     try {
       const response = await axiosInstance.post("/login", data);
@@ -46,7 +43,7 @@ const Login: React.FC = () => {
       // Redirect or update state as needed
     } catch (error) {
       console.error("Login failed", error);
-      setError(error.response.data.error);
+      handleError(error, setError);
       // Handle login failure
     }finally{
       setLoading(false);

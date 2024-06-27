@@ -6,12 +6,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import InputErrorSpan from "../../components/Input/InputErrorSpan";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
+import { handleError } from "../../utils/helpers";
 
-interface SignupFormData {
-  name: string;
-  email: string;
-  password: string;
-}
+
 
 const Signup: React.FC = () => {
   const {
@@ -20,7 +17,7 @@ const Signup: React.FC = () => {
     formState: { errors },
   } = useForm<SignupFormData>();
 
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +27,7 @@ const Signup: React.FC = () => {
     data: SignupFormData
   ) => {
     setLoading(true);
-    setError(null);
+    setError("");
     setSuccess(false);
     try {
       const response = await axiosInstance.post("/signup", data);
@@ -39,7 +36,7 @@ const Signup: React.FC = () => {
       navigate("/login");
     } catch (error) {
       console.error(error);
-      setError(error.response.data.error);
+      handleError(error, setError);
     } finally {
       setLoading(false);
     }

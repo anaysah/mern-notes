@@ -1,3 +1,5 @@
+import { isAxiosError } from "axios";
+
 export const getInitialName = (name: string) => {
   if (!name) return "";
 
@@ -10,3 +12,13 @@ export const getInitialName = (name: string) => {
   // Join the initials to form the final result
   return initials.join("");
 };
+
+export function handleError(error: unknown, setError: (message: string) => void): void {
+  if (isAxiosError(error)) {
+    setError(error.response?.data?.error ?? "An error occurred");
+  } else if (error instanceof Error) {
+    setError(error.message);
+  } else {
+    setError("An unexpected error occurred");
+  }
+}

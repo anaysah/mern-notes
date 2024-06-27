@@ -6,7 +6,7 @@ import { navbarItemsList } from '../../App';
 import Menubar from './Menubar';
 
 const Navbar: React.FC = () => {
-  const { page, navbarItems } = usePage();
+  const { navbarItems } = usePage();
 
   return (
     // <div>

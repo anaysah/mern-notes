@@ -20,8 +20,6 @@ const ProfileMenu = ({userInfo, logout}:{userInfo: user, logout: () => void}) =>
 }
 
 const ProfileInfo = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
-
   const [userInfo, setUserInfo] = useState<user>({
     name: "Unknown" ,
     email: ""
