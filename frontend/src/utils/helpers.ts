@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 
-export const getInitialName = (name: string) => {
+const getInitialName = (name: string) => {
   if (!name) return "";
 
   // Split the name by spaces to get an array of words
@@ -13,7 +13,7 @@ export const getInitialName = (name: string) => {
   return initials.join("");
 };
 
-export function handleError(error: unknown, setError: (message: string) => void): void {
+function handleError(error: unknown, setError: (message: string) => void): void {
   if (isAxiosError(error)) {
     setError(error.response?.data?.error ?? "An error occurred");
   } else if (error instanceof Error) {
@@ -22,3 +22,11 @@ export function handleError(error: unknown, setError: (message: string) => void)
     setError("An unexpected error occurred");
   }
 }
+
+function wait(duration:number){
+  return new Promise(resolve => {
+    setTimeout(resolve, duration);
+  });
+}
+
+export {getInitialName, handleError, wait}

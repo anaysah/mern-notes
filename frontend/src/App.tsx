@@ -8,6 +8,16 @@ import { PageProvider } from './contexts/PageContext';
 import Searchbox from './components/Navbar/Searchbox';
 import Menubar from './components/Navbar/Menubar';
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import Temp from './pages/temp/page';
+
+
+
 export const navbarItemsList = {
   Searchbox: <Searchbox key="searchbox" />,
   Menubar: <Menubar key="menubar" />,
@@ -35,25 +45,30 @@ const routes = [
   },
 ];
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        {routes.map((route) => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={
-              <PageProvider page={route.name} navbarItems={route.navbarItems}>
-                <Layout />
-              </PageProvider>
-            }
-          >
-            <Route index element={<route.element />} />
-          </Route>
-        ))}
-      </Routes>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          {routes.map((route) => (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                <PageProvider page={route.name} navbarItems={route.navbarItems}>
+                  <Layout />
+                </PageProvider>
+              }
+            >
+              <Route index element={<route.element />} />
+            </Route>
+          ))}
+        </Routes>
+      </Router>
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition='bottom-left' />
+    </QueryClientProvider>
   );
 }
 

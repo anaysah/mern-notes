@@ -5,15 +5,18 @@ import InputErrorSpan from "../../components/Input/InputErrorSpan";
 import ReactModal from "react-modal";
 import axiosInstance from "../../utils/axiosInstance";
 import SubmitBtn from "../../components/Buttons/SubmitBtn";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface NoteFormModalProps {
   noteModalStates: NoteModalStates;
   setNoteModalStates: React.Dispatch<React.SetStateAction<NoteModalStates>>;
-  setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
-  notes: Note[];
+  // setNotes: React.Dispatch<React.SetStateAction<Note[]>>;
+  // notes: Note[];
 }
 
-const NoteFormModal: React.FC<NoteFormModalProps> = ({noteModalStates, setNoteModalStates, setNotes, notes}) => {
+const NoteFormModal: React.FC<NoteFormModalProps> = ({noteModalStates, setNoteModalStates}) => {
+  const queryClient = useQueryClient()
+
   const {
     register,
     handleSubmit,
@@ -49,9 +52,10 @@ const NoteFormModal: React.FC<NoteFormModalProps> = ({noteModalStates, setNoteMo
     // delete data._id;
     try{
       const response = await axiosInstance.post("/add-note", data)
-      setNotes([...notes, response.data.note])
+      // setNotes([...notes, response.data.note])
       setNoteModalStates({ ...noteModalStates, isShown: false })
       reset();
+      queryClient.invalidateQueries({ queryKey: ['notes'] })
     }catch(error){
       console.error("Error adding note", error);
     }
@@ -60,9 +64,10 @@ const NoteFormModal: React.FC<NoteFormModalProps> = ({noteModalStates, setNoteMo
   const updateNote = async (data: Note) => {
     try{
       const response = await axiosInstance.put(`/edit-note/${noteModalStates.note?._id}`, data)
-      setNotes(notes.map(note => note._id === response.data.note._id ? response.data.note : note))
+      // setNotes(notes.map(note => note._id === response.data.note._id ? response.data.note : note))
       setNoteModalStates({ ...noteModalStates, isShown: false })
       reset();
+      queryClient.invalidateQueries({ queryKey: ['notes'] })
     }catch(error){
       console.error("Error updating note", error);
     }
