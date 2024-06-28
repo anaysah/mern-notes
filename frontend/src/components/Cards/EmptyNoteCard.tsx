@@ -22,7 +22,7 @@ const EmptyNoteCard= () => {
           <PinIcon className='h-5 w-5 cursor-pointer hover:text-blue-500'/>
         </div>
       </div>
-      <p className='text-sm line-clamp-3 mt-2 flex-1 text-pri'><EmptyBlock className='w-2/6'/> <EmptyBlock className='w-4/6'/> <EmptyBlock className='w-6/6'/></p>
+      <EmptyBlock className='w-2/6'/> <EmptyBlock className='w-4/6'/> <EmptyBlock className='w-6/6'/>
       <div className='flex justify-between items-center mt-2 text-tri'>
         <div className='flex gap-2 text-sm'>
           #<EmptyBlock className='w-10'/> #<EmptyBlock className='w-10'/> #<EmptyBlock className='w-10'/>
